@@ -51,22 +51,9 @@ with c2 :
     two.metric(Age['Name'].iloc[0], Age['Age'].iloc[0])
 
 st.divider()
-interest = st.selectbox('Select a column to filter by average in club:',
+interest = st.selectbox('Select Average Of:',
              ['Age' , 'Overall','Potential','Value','Wage','Skill Moves'])
 
-m1 , m2 = st.columns(2)
-with m1:
-    maxx = df[df['Nationality'] == nationality][interest].max()
-    name = df[df[interest] == maxx]['Name'].iloc[0]
-    bord1 = m1.container(border=1)
-    bord1.subheader(f'max {interest} in {nationality} ({maxx}) \n{name}')
-
-with m2:
-    
-    minn = df[df['Nationality'] == nationality][interest].min()
-    name = df[df[interest] == minn]['Name'].iloc[0]
-    bord2 = m2.container(border=1)
-    bord2.subheader(f'min {interest} in {nationality} ({minn}) \n{name}')
 
 avg = df[df['Nationality'] == nationality][interest].mean()
 # st.title(f'Average {interest} in {nationality} {avg.round(2)}')

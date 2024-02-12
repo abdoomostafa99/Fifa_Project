@@ -37,26 +37,22 @@ card2.metric(label = f'Min {interest}' , value = df[interest].min())
 card3 = col3.container(border=1)
 card3.metric(label = f'Avg Value of {interest}' , value = df[interest].mean().round(3))
 
+interestt = st.selectbox(f'Select {interest} filter by:',
+             ['Top','Buttom'])
 
-c1,c2 = st.columns(2)
-with c1:
 
-    st.title(f'top 10 {interest}')
-
+if interestt == 'Top':
+    st.title(f'Top 10 {interest}')
     dfnew = df[['Name','Club',interest]].nlargest(10 , interest)
     st.plotly_chart(px.bar(dfnew , x = 'Name' , y = interest , color='Name' , text_auto = 'True'))
 
-with c2 :
-
-    st.title(f'buttom 10 {interest}')
-
-    dfnew1 = df[['Name','Club',interest]].nsmallest(10 , interest)
-    st.plotly_chart(px.bar(dfnew1 , x = 'Name' , y = interest , color='Name', text_auto = 'True'))
-
-col3 , col4 = st.columns(2)
-with col3:
     st.title(f'top 10 {interest}')
     st.markdown(dfnew.to_markdown(index=False))
-with col4:
-    st.title(f'buttom 10 {interest}')
-    st.markdown(dfnew1.to_markdown(index=False))
+
+if interestt == 'Buttom':
+     st.title(f'buttom 10 {interest}')
+     dfnew1 = df[['Name','Club',interest]].nsmallest(10 , interest)
+     st.plotly_chart(px.bar(dfnew1 , x = 'Name' , y = interest , color='Name', text_auto = 'True'))
+     
+     st.title(f'buttom 10 {interest}')
+     st.markdown(dfnew1.to_markdown(index=False))
